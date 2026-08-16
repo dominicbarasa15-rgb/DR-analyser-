@@ -255,6 +255,218 @@ function analyseBusiness() {
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: #1677ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d63d8;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #eef5ff;
+            border-radius: 10px;
+        }
+
+        .metric {
+            font-size: 17px;
+            margin: 12px 0;
+        }
+
+        .verdict {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>DR Analyser</h1>
+
+    <p>Analyse your business before you invest.</p>
+
+    <label>Business Idea</label>
+    <input id="business" type="text" placeholder="e.g. Omena Shop">
+
+    <label>Starting Capital (KSh)</label>
+    <input id="capital" type="number" placeholder="50000">
+
+    <label>Expected Monthly Revenue (KSh)</label>
+    <input id="revenue" type="number" placeholder="40000">
+
+    <label>Monthly Expenses (KSh)</label>
+    <input id="expenses" type="number" placeholder="25000">
+
+    <button onclick="analyseBusiness()">Analyse Business</button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+
+function analyseBusiness() {
+
+    let business = document.getElementById("business").value.trim();
+    let capital = Number(document.getElementById("capital").value);
+    let revenue = Number(document.getElementById("revenue").value);
+    let expenses = Number(document.getElementById("expenses").value);
+
+    // Validate inputs
+    if (!business || capital <= 0 || revenue < 0 || expenses < 0) {
+        document.getElementById("result").innerHTML =
+            "<h2>Invalid Information</h2>" +
+            "<p>Please enter valid business information and amounts.</p>";
+        return;
+    }
+
+    // Main calculations
+    let profit = revenue - expenses;
+    let yearlyProfit = profit * 12;
+
+    let roi = (yearlyProfit / capital) * 100;
+
+    let breakEven;
+
+    if (profit > 0) {
+        breakEven = capital / profit;
+    } else {
+        breakEven = null;
+    }
+
+    let profitMargin = revenue > 0
+        ? (profit / revenue) * 100
+        : 0;
+
+    // Risk assessment
+    let risk;
+    let verdict;
+
+    if (profit <= 0) {
+        risk = "HIGH RISK";
+        verdict = "Not Recommended — the business is currently not profitable.";
+    }
+    else if (roi < 20) {
+        risk = "HIGH RISK";
+        verdict = "Needs Improvement — the expected return is relatively low.";
+    }
+    else if (roi < 50) {
+        risk = "MEDIUM RISK";
+        verdict = "Moderate Opportunity — consider reducing expenses or increasing revenue.";
+    }
+    else {
+        risk = "LOWER RISK";
+        verdict = "Good Opportunity — the projected return looks promising.";
+    }
+
+    // Format break-even
+    let breakEvenText;
+
+    if (breakEven !== null) {
+        breakEvenText = breakEven.toFixed(1) + " months";
+    } else {
+        breakEvenText = "Not achievable";
+    }
+
+    // Display results
+    document.getElementById("result").innerHTML =
+        "<h2>Business Analysis</h2>" +
+
+        "<p class='metric'><b>Business:</b> " +
+        business + "</p>" +
+
+        "<p class='metric'><b>Monthly Profit:</b> KSh " +
+        profit.toLocaleString() + "</p>" +
+
+        "<p class='metric'><b>Yearly Profit:</b> KSh " +
+        yearlyProfit.toLocaleString() + "</p>" +
+
+        "<p class='metric'><b>Profit Margin:</b> " +
+        profitMargin.toFixed(1) + "%</p>" +
+
+        "<p class='metric'><b>Estimated ROI:</b> " +
+        roi.toFixed(1) + "% per year</p>" +
+
+        "<p class='metric'><b>Break-even Period:</b> " +
+        breakEvenText + "</p>" +
+
+        "<p class='metric'><b>Risk Level:</b> " +
+        risk + "</p>" +
+
+        "<div class='verdict'>" +
+        verdict +
+        "</div>";
+}
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DR Analyser</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #102a43;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
         }
 
         button {
