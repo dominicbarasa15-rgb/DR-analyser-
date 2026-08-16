@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DR Analyser</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #102a43;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: #1677ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef5ff;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>DR Analyser</h1>
+
+    <p>Analyse your business before you invest.</p>
+
+    <label>Business Idea</label>
+    <input id="business" type="text" placeholder="e.g. Omena Shop">
+
+    <label>Starting Capital (KSh)</label>
+    <input id="capital" type="number" placeholder="50000">
+
+    <label>Expected Monthly Revenue (KSh)</label>
+    <input id="revenue" type="number" placeholder="40000">
+
+    <label>Monthly Expenses (KSh)</label>
+    <input id="expenses" type="number" placeholder="25000">
+
+    <button onclick="analyseBusiness()">Analyse Business</button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+
+function analyseBusiness() {
+
+    let business = document.getElementById("business").value;
+    let capital = Number(document.getElementById("capital").value);
+    let revenue = Number(document.getElementById("revenue").value);
+    let expenses = Number(document.getElementById("expenses").value);
+
+    let profit = revenue - expenses;
+
+    let risk;
+
+    if (profit <= 0) {
+        risk = "HIGH RISK";
+    } 
+    else if (profit < capital * 0.10) {
+        risk = "MEDIUM RISK";
+    } 
+    else {
+        risk = "LOWER RISK";
+    }
+
+    document.getElementById("result").innerHTML =
+        "<h2>Business Analysis</h2>" +
+        "<p><b>Business:</b> " + business + "</p>" +
+        "<p><b>Estimated Monthly Profit:</b> KSh " + profit.toLocaleString() + "</p>" +
+        "<p><b>Risk Level:</b> " + risk + "</p>";
+}
+
+</script>
+
+</body>
+</html>
