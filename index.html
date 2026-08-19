@@ -1,549 +1,589 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DR Analyser</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
-            padding: 20px;
+<title>DR Analyser | Analyse Before You Invest</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #172033;
+    }
+
+    header {
+        background: linear-gradient(135deg, #071a41, #123c91);
+        color: white;
+        padding: 22px 18px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 30px;
+    }
+
+    header p {
+        margin: 8px 0 0;
+        opacity: 0.9;
+    }
+
+    .container {
+        width: 92%;
+        max-width: 1050px;
+        margin: 25px auto;
+    }
+
+    .intro {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .intro h2 {
+        margin-bottom: 8px;
+        color: #102a43;
+    }
+
+    .intro p {
+        color: #64748b;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 22px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    }
+
+    .card h2 {
+        margin-top: 0;
+        color: #102a43;
+    }
+
+    label {
+        display: block;
+        margin-top: 16px;
+        margin-bottom: 7px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #d6dce5;
+        border-radius: 9px;
+        font-size: 16px;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #1677ff;
+        box-shadow: 0 0 0 3px rgba(22,119,255,0.1);
+    }
+
+    .btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 22px;
+        border: none;
+        border-radius: 9px;
+        background: #1677ff;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #0d63d8;
+    }
+
+    .reset {
+        background: #e8eef7;
+        color: #172033;
+        margin-top: 10px;
+    }
+
+    .reset:hover {
+        background: #dce5f2;
+    }
+
+    #result {
+        display: none;
+    }
+
+    .result-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .result-title h2 {
+        margin: 0;
+    }
+
+    .business-name {
+        color: #1677ff;
+        font-weight: bold;
+    }
+
+    .metrics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 20px;
+    }
+
+    .metric {
+        padding: 18px;
+        border-radius: 12px;
+        background: #f7f9fc;
+        border: 1px solid #edf0f5;
+    }
+
+    .metric span {
+        display: block;
+        color: #64748b;
+        font-size: 13px;
+        margin-bottom: 7px;
+    }
+
+    .metric strong {
+        font-size: 20px;
+        color: #102a43;
+    }
+
+    .profit strong {
+        color: #159447;
+    }
+
+    .roi strong {
+        color: #2563eb;
+    }
+
+    .risk-box {
+        margin-top: 20px;
+        padding: 18px;
+        border-radius: 12px;
+        background: #fff7ed;
+        border-left: 5px solid #f59e0b;
+    }
+
+    .risk-box h3 {
+        margin-top: 0;
+    }
+
+    .risk-score {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 8px 0;
+    }
+
+    .recommendation {
+        margin-top: 15px;
+        padding: 18px;
+        border-radius: 12px;
+        background: #eef5ff;
+    }
+
+    .recommendation h3 {
+        margin-top: 0;
+        color: #123c91;
+    }
+
+    .empty {
+        text-align: center;
+        color: #64748b;
+        padding: 40px 10px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        margin-top: 30px;
+        background: #071a41;
+        color: white;
+        font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .metrics {
+            grid-template-columns: 1fr;
+        }
+
+        header h1 {
+            font-size: 25px;
         }
 
         .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
+            width: 94%;
         }
-
-        h1 {
-            text-align: center;
-            color: #102a43;
-        }
-
-        p {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 6px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            margin-top: 20px;
-            background: #1677ff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #0d63d8;
-        }
-
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            background: #eef5ff;
-            border-radius: 10px;
-        }
-
-        .metric {
-            font-size: 17px;
-            margin: 12px 0;
-        }
-
-        .verdict {
-            margin-top: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
 
+<header>
+    <h1>📊 DR ANALYSER</h1>
+    <p>Analyse your business before you invest.</p>
+</header>
+
 <div class="container">
 
-    <h1>DR Analyser</h1>
+    <div class="intro">
+        <h2>Make Better Business Decisions</h2>
+        <p>
+            Enter your expected numbers and DR Analyser will estimate
+            profitability, ROI, break-even and business risk.
+        </p>
+    </div>
 
-    <p>Analyse your business before you invest.</p>
+    <div class="grid">
 
-    <label>Business Idea</label>
-    <input id="business" type="text" placeholder="e.g. Omena Shop">
+        <!-- INPUT SECTION -->
+        <div class="card">
 
-    <label>Starting Capital (KSh)</label>
-    <input id="capital" type="number" placeholder="50000">
+            <h2>Business Details</h2>
 
-    <label>Expected Monthly Revenue (KSh)</label>
-    <input id="revenue" type="number" placeholder="40000">
+            <label for="business">Business Idea</label>
+            <input
+                id="business"
+                type="text"
+                placeholder="e.g. Omena Shop"
+            >
 
-    <label>Monthly Expenses (KSh)</label>
-    <input id="expenses" type="number" placeholder="25000">
+            <label for="capital">Starting Capital (KSh)</label>
+            <input
+                id="capital"
+                type="number"
+                min="1"
+                placeholder="50000"
+            >
 
-    <button onclick="analyseBusiness()">Analyse Business</button>
+            <label for="revenue">Expected Monthly Revenue (KSh)</label>
+            <input
+                id="revenue"
+                type="number"
+                min="0"
+                placeholder="40000"
+            >
 
-    <div id="result"></div>
+            <label for="expenses">Monthly Expenses (KSh)</label>
+            <input
+                id="expenses"
+                type="number"
+                min="0"
+                placeholder="25000"
+            >
+
+            <button class="btn" onclick="analyseBusiness()">
+                🔍 Analyse Business
+            </button>
+
+            <button class="btn reset" onclick="resetAnalysis()">
+                Reset
+            </button>
+
+        </div>
+
+        <!-- RESULTS SECTION -->
+        <div class="card">
+
+            <div id="empty" class="empty">
+                <h2>📈 Your Results</h2>
+                <p>
+                    Enter your business information and tap
+                    <b>Analyse Business</b>.
+                </p>
+            </div>
+
+            <div id="result">
+
+                <div class="result-title">
+                    <h2>Business Analysis</h2>
+                    <span class="business-name" id="resultBusiness"></span>
+                </div>
+
+                <div class="metrics">
+
+                    <div class="metric profit">
+                        <span>Monthly Profit</span>
+                        <strong id="monthlyProfit"></strong>
+                    </div>
+
+                    <div class="metric">
+                        <span>Yearly Profit</span>
+                        <strong id="yearlyProfit"></strong>
+                    </div>
+
+                    <div class="metric roi">
+                        <span>Estimated Annual ROI</span>
+                        <strong id="roi"></strong>
+                    </div>
+
+                    <div class="metric">
+                        <span>Profit Margin</span>
+                        <strong id="margin"></strong>
+                    </div>
+
+                    <div class="metric">
+                        <span>Break-even Period</span>
+                        <strong id="breakEven"></strong>
+                    </div>
+
+                    <div class="metric">
+                        <span>Risk Score</span>
+                        <strong id="riskScore"></strong>
+                    </div>
+
+                </div>
+
+                <div class="risk-box">
+                    <h3>⚠️ Risk Assessment</h3>
+                    <div class="risk-score" id="riskLevel"></div>
+                    <p id="riskMessage"></p>
+                </div>
+
+                <div class="recommendation">
+                    <h3>💡 DR Analyser Recommendation</h3>
+                    <p id="recommendation"></p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
+<footer>
+    <b>DR ANALYSER</b><br>
+    Analyse before you invest.<br><br>
+    © 2026 DR Analyser
+</footer>
+
+
 <script>
+
+function formatMoney(amount) {
+    return "KSh " + amount.toLocaleString("en-KE", {
+        maximumFractionDigits: 0
+    });
+}
+
 
 function analyseBusiness() {
 
-    let business = document.getElementById("business").value.trim();
-    let capital = Number(document.getElementById("capital").value);
-    let revenue = Number(document.getElementById("revenue").value);
-    let expenses = Number(document.getElementById("expenses").value);
+    const business =
+        document.getElementById("business").value.trim();
 
-    // Validate inputs
-    if (!business || capital <= 0 || revenue < 0 || expenses < 0) {
-        document.getElementById("result").innerHTML =
-            "<h2>Invalid Information</h2>" +
-            "<p>Please enter valid business information and amounts.</p>";
+    const capital =
+        Number(document.getElementById("capital").value);
+
+    const revenue =
+        Number(document.getElementById("revenue").value);
+
+    const expenses =
+        Number(document.getElementById("expenses").value);
+
+
+    // VALIDATION
+
+    if (
+        !business ||
+        capital <= 0 ||
+        revenue < 0 ||
+        expenses < 0
+    ) {
+
+        alert(
+            "Please enter a business name and valid financial information."
+        );
+
         return;
     }
 
-    // Main calculations
-    let profit = revenue - expenses;
-    let yearlyProfit = profit * 12;
 
-    let roi = (yearlyProfit / capital) * 100;
+    // CALCULATIONS
+
+    const monthlyProfit = revenue - expenses;
+
+    const yearlyProfit = monthlyProfit * 12;
+
+    const roi =
+        (yearlyProfit / capital) * 100;
+
+    const margin =
+        revenue > 0
+        ? (monthlyProfit / revenue) * 100
+        : 0;
 
     let breakEven;
 
-    if (profit > 0) {
-        breakEven = capital / profit;
+    if (monthlyProfit > 0) {
+        breakEven = capital / monthlyProfit;
     } else {
         breakEven = null;
     }
 
-    let profitMargin = revenue > 0
-        ? (profit / revenue) * 100
-        : 0;
 
-    // Risk assessment
-    let risk;
-    let verdict;
+    // RISK SCORE
 
-    if (profit <= 0) {
-        risk = "HIGH RISK";
-        verdict = "Not Recommended — the business is currently not profitable.";
+    let score = 0;
+
+    if (monthlyProfit <= 0) {
+        score += 5;
+    } else if (margin < 10) {
+        score += 4;
+    } else if (margin < 20) {
+        score += 2;
     }
-    else if (roi < 20) {
-        risk = "HIGH RISK";
-        verdict = "Needs Improvement — the expected return is relatively low.";
+
+    if (roi < 20) {
+        score += 4;
+    } else if (roi < 50) {
+        score += 2;
     }
-    else if (roi < 50) {
-        risk = "MEDIUM RISK";
-        verdict = "Moderate Opportunity — consider reducing expenses or increasing revenue.";
+
+    if (breakEven !== null && breakEven > 12) {
+        score += 3;
+    } else if (breakEven !== null && breakEven > 6) {
+        score += 2;
     }
+
+
+    // LIMIT SCORE
+
+    if (score > 10) {
+        score = 10;
+    }
+
+
+    // RISK LEVEL
+
+    let riskLevel;
+    let riskMessage;
+    let recommendation;
+
+
+    if (monthlyProfit <= 0) {
+
+        riskLevel = "HIGH RISK";
+        riskMessage =
+            "The business is currently not generating a positive monthly profit.";
+
+        recommendation =
+            "Do not invest based on these numbers yet. Consider increasing revenue, reducing expenses, or changing the business model.";
+
+    }
+
+    else if (score >= 7) {
+
+        riskLevel = "HIGH RISK";
+        riskMessage =
+            "The projected returns are weak compared with the capital required.";
+
+        recommendation =
+            "The numbers need improvement before investing. Look for ways to increase sales and reduce operating costs.";
+
+    }
+
+    else if (score >= 4) {
+
+        riskLevel = "MEDIUM RISK";
+        riskMessage =
+            "The business may work, but there are financial areas that need attention.";
+
+        recommendation =
+            "Consider starting carefully, controlling expenses and testing customer demand before committing all your capital.";
+
+    }
+
     else {
-        risk = "LOWER RISK";
-        verdict = "Good Opportunity — the projected return looks promising.";
+
+        riskLevel = "LOWER RISK";
+        riskMessage =
+            "The projected business numbers show positive profitability and a relatively attractive return.";
+
+        recommendation =
+            "The numbers look promising. However, confirm real market demand, competition and actual operating costs before investing.";
+
     }
 
-    // Format break-even
-    let breakEvenText;
 
-    if (breakEven !== null) {
-        breakEvenText = breakEven.toFixed(1) + " months";
-    } else {
-        breakEvenText = "Not achievable";
-    }
+    // DISPLAY RESULTS
 
-    // Display results
-    document.getElementById("result").innerHTML =
-        "<h2>Business Analysis</h2>" +
+    document.getElementById("empty").style.display = "none";
 
-        "<p class='metric'><b>Business:</b> " +
-        business + "</p>" +
+    document.getElementById("result").style.display = "block";
 
-        "<p class='metric'><b>Monthly Profit:</b> KSh " +
-        profit.toLocaleString() + "</p>" +
+    document.getElementById("resultBusiness").textContent =
+        business;
 
-        "<p class='metric'><b>Yearly Profit:</b> KSh " +
-        yearlyProfit.toLocaleString() + "</p>" +
+    document.getElementById("monthlyProfit").textContent =
+        formatMoney(monthlyProfit);
 
-        "<p class='metric'><b>Profit Margin:</b> " +
-        profitMargin.toFixed(1) + "%</p>" +
+    document.getElementById("yearlyProfit").textContent =
+        formatMoney(yearlyProfit);
 
-        "<p class='metric'><b>Estimated ROI:</b> " +
-        roi.toFixed(1) + "% per year</p>" +
+    document.getElementById("roi").textContent =
+        roi.toFixed(1) + "%";
 
-        "<p class='metric'><b>Break-even Period:</b> " +
-        breakEvenText + "</p>" +
+    document.getElementById("margin").textContent =
+        margin.toFixed(1) + "%";
 
-        "<p class='metric'><b>Risk Level:</b> " +
-        risk + "</p>" +
+    document.getElementById("breakEven").textContent =
+        breakEven !== null
+        ? breakEven.toFixed(1) + " months"
+        : "Not achievable";
 
-        "<div class='verdict'>" +
-        verdict +
-        "</div>";
+    document.getElementById("riskScore").textContent =
+        score + " / 10";
+
+    document.getElementById("riskLevel").textContent =
+        riskLevel;
+
+    document.getElementById("riskMessage").textContent =
+        riskMessage;
+
+    document.getElementById("recommendation").textContent =
+        recommendation;
 }
 
-</script>
 
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DR Analyser</title>
+function resetAnalysis() {
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
-            padding: 20px;
-        }
+    document.getElementById("business").value = "";
+    document.getElementById("capital").value = "";
+    document.getElementById("revenue").value = "";
+    document.getElementById("expenses").value = "";
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #102a43;
-        }
-
-        p {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 6px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            margin-top: 20px;
-            background: #1677ff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #0d63d8;
-        }
-
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            background: #eef5ff;
-            border-radius: 10px;
-        }
-
-        .metric {
-            font-size: 17px;
-            margin: 12px 0;
-        }
-
-        .verdict {
-            margin-top: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <h1>DR Analyser</h1>
-
-    <p>Analyse your business before you invest.</p>
-
-    <label>Business Idea</label>
-    <input id="business" type="text" placeholder="e.g. Omena Shop">
-
-    <label>Starting Capital (KSh)</label>
-    <input id="capital" type="number" placeholder="50000">
-
-    <label>Expected Monthly Revenue (KSh)</label>
-    <input id="revenue" type="number" placeholder="40000">
-
-    <label>Monthly Expenses (KSh)</label>
-    <input id="expenses" type="number" placeholder="25000">
-
-    <button onclick="analyseBusiness()">Analyse Business</button>
-
-    <div id="result"></div>
-
-</div>
-
-<script>
-
-function analyseBusiness() {
-
-    let business = document.getElementById("business").value.trim();
-    let capital = Number(document.getElementById("capital").value);
-    let revenue = Number(document.getElementById("revenue").value);
-    let expenses = Number(document.getElementById("expenses").value);
-
-    // Validate inputs
-    if (!business || capital <= 0 || revenue < 0 || expenses < 0) {
-        document.getElementById("result").innerHTML =
-            "<h2>Invalid Information</h2>" +
-            "<p>Please enter valid business information and amounts.</p>";
-        return;
-    }
-
-    // Main calculations
-    let profit = revenue - expenses;
-    let yearlyProfit = profit * 12;
-
-    let roi = (yearlyProfit / capital) * 100;
-
-    let breakEven;
-
-    if (profit > 0) {
-        breakEven = capital / profit;
-    } else {
-        breakEven = null;
-    }
-
-    let profitMargin = revenue > 0
-        ? (profit / revenue) * 100
-        : 0;
-
-    // Risk assessment
-    let risk;
-    let verdict;
-
-    if (profit <= 0) {
-        risk = "HIGH RISK";
-        verdict = "Not Recommended — the business is currently not profitable.";
-    }
-    else if (roi < 20) {
-        risk = "HIGH RISK";
-        verdict = "Needs Improvement — the expected return is relatively low.";
-    }
-    else if (roi < 50) {
-        risk = "MEDIUM RISK";
-        verdict = "Moderate Opportunity — consider reducing expenses or increasing revenue.";
-    }
-    else {
-        risk = "LOWER RISK";
-        verdict = "Good Opportunity — the projected return looks promising.";
-    }
-
-    // Format break-even
-    let breakEvenText;
-
-    if (breakEven !== null) {
-        breakEvenText = breakEven.toFixed(1) + " months";
-    } else {
-        breakEvenText = "Not achievable";
-    }
-
-    // Display results
-    document.getElementById("result").innerHTML =
-        "<h2>Business Analysis</h2>" +
-
-        "<p class='metric'><b>Business:</b> " +
-        business + "</p>" +
-
-        "<p class='metric'><b>Monthly Profit:</b> KSh " +
-        profit.toLocaleString() + "</p>" +
-
-        "<p class='metric'><b>Yearly Profit:</b> KSh " +
-        yearlyProfit.toLocaleString() + "</p>" +
-
-        "<p class='metric'><b>Profit Margin:</b> " +
-        profitMargin.toFixed(1) + "%</p>" +
-
-        "<p class='metric'><b>Estimated ROI:</b> " +
-        roi.toFixed(1) + "% per year</p>" +
-
-        "<p class='metric'><b>Break-even Period:</b> " +
-        breakEvenText + "</p>" +
-
-        "<p class='metric'><b>Risk Level:</b> " +
-        risk + "</p>" +
-
-        "<div class='verdict'>" +
-        verdict +
-        "</div>";
-}
-
-</script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DR Analyser</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #102a43;
-        }
-
-        p {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 6px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            margin-top: 20px;
-            background: #1677ff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            background: #eef5ff;
-            border-radius: 10px;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <h1>DR Analyser</h1>
-
-    <p>Analyse your business before you invest.</p>
-
-    <label>Business Idea</label>
-    <input id="business" type="text" placeholder="e.g. Omena Shop">
-
-    <label>Starting Capital (KSh)</label>
-    <input id="capital" type="number" placeholder="50000">
-
-    <label>Expected Monthly Revenue (KSh)</label>
-    <input id="revenue" type="number" placeholder="40000">
-
-    <label>Monthly Expenses (KSh)</label>
-    <input id="expenses" type="number" placeholder="25000">
-
-    <button onclick="analyseBusiness()">Analyse Business</button>
-
-    <div id="result"></div>
-
-</div>
-
-<script>
-
-function analyseBusiness() {
-
-    let business = document.getElementById("business").value;
-    let capital = Number(document.getElementById("capital").value);
-    let revenue = Number(document.getElementById("revenue").value);
-    let expenses = Number(document.getElementById("expenses").value);
-
-    let profit = revenue - expenses;
-
-    let risk;
-
-    if (profit <= 0) {
-        risk = "HIGH RISK";
-    } 
-    else if (profit < capital * 0.10) {
-        risk = "MEDIUM RISK";
-    } 
-    else {
-        risk = "LOWER RISK";
-    }
-
-    document.getElementById("result").innerHTML =
-        "<h2>Business Analysis</h2>" +
-        "<p><b>Business:</b> " + business + "</p>" +
-        "<p><b>Estimated Monthly Profit:</b> KSh " + profit.toLocaleString() + "</p>" +
-        "<p><b>Risk Level:</b> " + risk + "</p>";
+    document.getElementById("result").style.display = "none";
+    document.getElementById("empty").style.display = "block";
 }
 
 </script>
