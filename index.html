@@ -7,240 +7,303 @@
 <title>DR Analyser | Analyse Before You Invest</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f4f7fb;
-        color: #172033;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+}
 
-    header {
-        background: linear-gradient(135deg, #071a41, #123c91);
-        color: white;
-        padding: 22px 18px;
-        text-align: center;
+header {
+    background: linear-gradient(135deg, #071a41, #123c91);
+    color: white;
+    padding: 22px 18px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+header p {
+    margin: 8px 0 0;
+    opacity: 0.9;
+}
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.intro h2 {
+    margin-bottom: 8px;
+    color: #102a43;
+}
+
+.intro p {
+    color: #64748b;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #102a43;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d6dce5;
+    border-radius: 9px;
+    font-size: 16px;
+    outline: none;
+    background: white;
+}
+
+input:focus,
+select:focus {
+    border-color: #1677ff;
+    box-shadow: 0 0 0 3px rgba(22,119,255,0.1);
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 22px;
+    border: none;
+    border-radius: 9px;
+    background: #1677ff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #0d63d8;
+}
+
+.reset {
+    background: #e8eef7;
+    color: #172033;
+    margin-top: 10px;
+}
+
+#result {
+    display: none;
+}
+
+.result-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.result-title h2 {
+    margin: 0;
+}
+
+.business-name {
+    color: #1677ff;
+    font-weight: bold;
+}
+
+.score-box {
+    margin-top: 20px;
+    padding: 22px;
+    border-radius: 14px;
+    background: #eef5ff;
+    text-align: center;
+}
+
+.score-title {
+    color: #123c91;
+    font-weight: bold;
+}
+
+.business-score {
+    font-size: 46px;
+    font-weight: bold;
+    margin: 8px 0;
+    color: #1677ff;
+}
+
+.score-label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.metric {
+    padding: 18px;
+    border-radius: 12px;
+    background: #f7f9fc;
+    border: 1px solid #edf0f5;
+}
+
+.metric span {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.metric strong {
+    font-size: 20px;
+    color: #102a43;
+}
+
+.profit strong {
+    color: #159447;
+}
+
+.roi strong {
+    color: #2563eb;
+}
+
+.risk-box {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #fff7ed;
+    border-left: 5px solid #f59e0b;
+}
+
+.risk-box h3 {
+    margin-top: 0;
+}
+
+.risk-score {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.assessment {
+    margin-top: 20px;
+}
+
+.assessment h3 {
+    color: #102a43;
+}
+
+.assessment-item {
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: #f7f9fc;
+    border-left: 4px solid #1677ff;
+}
+
+.good {
+    border-left-color: #159447;
+}
+
+.warning {
+    border-left-color: #f59e0b;
+}
+
+.bad {
+    border-left-color: #dc2626;
+}
+
+.recommendation {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #eef5ff;
+}
+
+.recommendation h3 {
+    margin-top: 0;
+    color: #123c91;
+}
+
+.empty {
+    text-align: center;
+    color: #64748b;
+    padding: 40px 10px;
+}
+
+.disclaimer {
+    margin-top: 18px;
+    font-size: 12px;
+    color: #64748b;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+    background: #071a41;
+    color: white;
+    font-size: 14px;
+}
+
+@media (max-width: 800px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .metrics {
+        grid-template-columns: 1fr;
     }
 
     header h1 {
-        margin: 0;
-        font-size: 30px;
-    }
-
-    header p {
-        margin: 8px 0 0;
-        opacity: 0.9;
+        font-size: 25px;
     }
 
     .container {
-        width: 92%;
-        max-width: 1050px;
-        margin: 25px auto;
+        width: 94%;
     }
 
-    .intro {
-        text-align: center;
-        margin-bottom: 25px;
+    .business-score {
+        font-size: 40px;
     }
-
-    .intro h2 {
-        margin-bottom: 8px;
-        color: #102a43;
-    }
-
-    .intro p {
-        color: #64748b;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: 1fr 1.4fr;
-        gap: 22px;
-    }
-
-    .card {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-    }
-
-    .card h2 {
-        margin-top: 0;
-        color: #102a43;
-    }
-
-    label {
-        display: block;
-        margin-top: 16px;
-        margin-bottom: 7px;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    input {
-        width: 100%;
-        padding: 13px;
-        border: 1px solid #d6dce5;
-        border-radius: 9px;
-        font-size: 16px;
-        outline: none;
-    }
-
-    input:focus {
-        border-color: #1677ff;
-        box-shadow: 0 0 0 3px rgba(22,119,255,0.1);
-    }
-
-    .btn {
-        width: 100%;
-        padding: 15px;
-        margin-top: 22px;
-        border: none;
-        border-radius: 9px;
-        background: #1677ff;
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .btn:hover {
-        background: #0d63d8;
-    }
-
-    .reset {
-        background: #e8eef7;
-        color: #172033;
-        margin-top: 10px;
-    }
-
-    .reset:hover {
-        background: #dce5f2;
-    }
-
-    #result {
-        display: none;
-    }
-
-    .result-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    .result-title h2 {
-        margin: 0;
-    }
-
-    .business-name {
-        color: #1677ff;
-        font-weight: bold;
-    }
-
-    .metrics {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-        margin-top: 20px;
-    }
-
-    .metric {
-        padding: 18px;
-        border-radius: 12px;
-        background: #f7f9fc;
-        border: 1px solid #edf0f5;
-    }
-
-    .metric span {
-        display: block;
-        color: #64748b;
-        font-size: 13px;
-        margin-bottom: 7px;
-    }
-
-    .metric strong {
-        font-size: 20px;
-        color: #102a43;
-    }
-
-    .profit strong {
-        color: #159447;
-    }
-
-    .roi strong {
-        color: #2563eb;
-    }
-
-    .risk-box {
-        margin-top: 20px;
-        padding: 18px;
-        border-radius: 12px;
-        background: #fff7ed;
-        border-left: 5px solid #f59e0b;
-    }
-
-    .risk-box h3 {
-        margin-top: 0;
-    }
-
-    .risk-score {
-        font-size: 24px;
-        font-weight: bold;
-        margin: 8px 0;
-    }
-
-    .recommendation {
-        margin-top: 15px;
-        padding: 18px;
-        border-radius: 12px;
-        background: #eef5ff;
-    }
-
-    .recommendation h3 {
-        margin-top: 0;
-        color: #123c91;
-    }
-
-    .empty {
-        text-align: center;
-        color: #64748b;
-        padding: 40px 10px;
-    }
-
-    footer {
-        text-align: center;
-        padding: 25px;
-        margin-top: 30px;
-        background: #071a41;
-        color: white;
-        font-size: 14px;
-    }
-
-    @media (max-width: 800px) {
-        .grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 500px) {
-        .metrics {
-            grid-template-columns: 1fr;
-        }
-
-        header h1 {
-            font-size: 25px;
-        }
-
-        .container {
-            width: 94%;
-        }
-    }
+}
 </style>
 </head>
 
@@ -256,14 +319,15 @@
     <div class="intro">
         <h2>Make Better Business Decisions</h2>
         <p>
-            Enter your expected numbers and DR Analyser will estimate
-            profitability, ROI, break-even and business risk.
+            Analyse profitability, ROI, break-even, market conditions
+            and business risk before investing.
         </p>
     </div>
 
     <div class="grid">
 
-        <!-- INPUT SECTION -->
+        <!-- INPUTS -->
+
         <div class="card">
 
             <h2>Business Details</h2>
@@ -299,6 +363,28 @@
                 placeholder="25000"
             >
 
+            <label for="demand">Expected Market Demand</label>
+            <select id="demand">
+                <option value="3">High</option>
+                <option value="2" selected>Medium</option>
+                <option value="1">Low</option>
+            </select>
+
+            <label for="competition">Competition Level</label>
+            <select id="competition">
+                <option value="3">Low</option>
+                <option value="2" selected>Medium</option>
+                <option value="1">High</option>
+            </select>
+
+            <label for="reserve">Emergency Cash Reserve (KSh)</label>
+            <input
+                id="reserve"
+                type="number"
+                min="0"
+                placeholder="10000"
+            >
+
             <button class="btn" onclick="analyseBusiness()">
                 🔍 Analyse Business
             </button>
@@ -309,7 +395,9 @@
 
         </div>
 
-        <!-- RESULTS SECTION -->
+
+        <!-- RESULTS -->
+
         <div class="card">
 
             <div id="empty" class="empty">
@@ -326,6 +414,21 @@
                     <h2>Business Analysis</h2>
                     <span class="business-name" id="resultBusiness"></span>
                 </div>
+
+                <div class="score-box">
+
+                    <div class="score-title">
+                        DR BUSINESS SCORE
+                    </div>
+
+                    <div class="business-score" id="businessScore">
+                        0/100
+                    </div>
+
+                    <div class="score-label" id="scoreLabel"></div>
+
+                </div>
+
 
                 <div class="metrics">
 
@@ -361,15 +464,44 @@
 
                 </div>
 
+
                 <div class="risk-box">
+
                     <h3>⚠️ Risk Assessment</h3>
+
                     <div class="risk-score" id="riskLevel"></div>
+
                     <p id="riskMessage"></p>
+
                 </div>
 
+
+                <div class="assessment">
+
+                    <h3>🔎 Business Assessment</h3>
+
+                    <div class="assessment-item" id="profitAssessment"></div>
+
+                    <div class="assessment-item" id="marketAssessment"></div>
+
+                    <div class="assessment-item" id="competitionAssessment"></div>
+
+                    <div class="assessment-item" id="reserveAssessment"></div>
+
+                </div>
+
+
                 <div class="recommendation">
+
                     <h3>💡 DR Analyser Recommendation</h3>
+
                     <p id="recommendation"></p>
+
+                </div>
+
+                <div class="disclaimer">
+                    DR Analyser provides estimates based on the information entered.
+                    It is not financial or investment advice.
                 </div>
 
             </div>
@@ -379,6 +511,7 @@
     </div>
 
 </div>
+
 
 <footer>
     <b>DR ANALYSER</b><br>
@@ -410,132 +543,343 @@ function analyseBusiness() {
     const expenses =
         Number(document.getElementById("expenses").value);
 
+    const demand =
+        Number(document.getElementById("demand").value);
 
-    // VALIDATION
+    const competition =
+        Number(document.getElementById("competition").value);
+
+    const reserve =
+        Number(document.getElementById("reserve").value);
+
 
     if (
         !business ||
+        !Number.isFinite(capital) ||
+        !Number.isFinite(revenue) ||
+        !Number.isFinite(expenses) ||
+        !Number.isFinite(reserve) ||
         capital <= 0 ||
         revenue < 0 ||
-        expenses < 0
+        expenses < 0 ||
+        reserve < 0
     ) {
-
         alert(
             "Please enter a business name and valid financial information."
         );
-
         return;
     }
 
 
-    // CALCULATIONS
+    // FINANCIAL CALCULATIONS
 
     const monthlyProfit = revenue - expenses;
 
     const yearlyProfit = monthlyProfit * 12;
 
-    const roi =
-        (yearlyProfit / capital) * 100;
+    const roi = (yearlyProfit / capital) * 100;
 
     const margin =
         revenue > 0
         ? (monthlyProfit / revenue) * 100
         : 0;
 
-    let breakEven;
+    const breakEven =
+        monthlyProfit > 0
+        ? capital / monthlyProfit
+        : null;
 
-    if (monthlyProfit > 0) {
-        breakEven = capital / monthlyProfit;
+
+    // BUSINESS SCORE — 100 POINTS
+
+    let score = 0;
+
+
+    // Profit margin: 25 points
+
+    if (margin >= 30) {
+        score += 25;
+    } else if (margin >= 20) {
+        score += 21;
+    } else if (margin >= 10) {
+        score += 15;
+    } else if (margin > 0) {
+        score += 7;
+    }
+
+
+    // ROI: 25 points
+
+    if (roi >= 50) {
+        score += 25;
+    } else if (roi >= 30) {
+        score += 21;
+    } else if (roi >= 15) {
+        score += 15;
+    } else if (roi > 0) {
+        score += 7;
+    }
+
+
+    // Market demand: 15 points
+
+    if (demand === 3) {
+        score += 15;
+    } else if (demand === 2) {
+        score += 9;
     } else {
-        breakEven = null;
+        score += 3;
+    }
+
+
+    // Competition: 15 points
+
+    if (competition === 3) {
+        score += 15;
+    } else if (competition === 2) {
+        score += 9;
+    } else {
+        score += 3;
+    }
+
+
+    // Cash reserve: 20 points
+
+    if (reserve >= expenses * 3) {
+        score += 20;
+    } else if (reserve >= expenses * 2) {
+        score += 15;
+    } else if (reserve >= expenses) {
+        score += 10;
+    } else if (reserve > 0) {
+        score += 5;
+    }
+
+
+    // A loss-making business cannot receive a high score
+
+    if (monthlyProfit <= 0) {
+        score = Math.min(score, 25);
+    }
+
+
+    // SCORE LABEL
+
+    let scoreLabel;
+
+    if (score >= 80) {
+        scoreLabel = "Excellent Potential";
+    } else if (score >= 65) {
+        scoreLabel = "Good Potential";
+    } else if (score >= 50) {
+        scoreLabel = "Moderate Potential";
+    } else if (score >= 35) {
+        scoreLabel = "Needs Improvement";
+    } else {
+        scoreLabel = "High Risk";
     }
 
 
     // RISK SCORE
 
-    let score = 0;
+    let risk = 10;
 
-    if (monthlyProfit <= 0) {
-        score += 5;
-    } else if (margin < 10) {
-        score += 4;
-    } else if (margin < 20) {
-        score += 2;
+    if (monthlyProfit > 0) {
+
+        if (margin >= 30) {
+            risk -= 2;
+        } else if (margin >= 20) {
+            risk -= 1;
+        }
+
+        if (roi >= 50) {
+            risk -= 2;
+        } else if (roi >= 30) {
+            risk -= 1;
+        }
+
+        if (demand === 3) {
+            risk -= 2;
+        } else if (demand === 2) {
+            risk -= 1;
+        }
+
+        if (competition === 3) {
+            risk -= 2;
+        } else if (competition === 2) {
+            risk -= 1;
+        }
+
+        if (reserve >= expenses * 3) {
+            risk -= 2;
+        } else if (reserve >= expenses) {
+            risk -= 1;
+        }
+
+    } else {
+        risk = 10;
     }
 
-    if (roi < 20) {
-        score += 4;
-    } else if (roi < 50) {
-        score += 2;
-    }
 
-    if (breakEven !== null && breakEven > 12) {
-        score += 3;
-    } else if (breakEven !== null && breakEven > 6) {
-        score += 2;
-    }
-
-
-    // LIMIT SCORE
-
-    if (score > 10) {
-        score = 10;
-    }
+    risk = Math.max(1, Math.min(10, risk));
 
 
     // RISK LEVEL
 
     let riskLevel;
     let riskMessage;
-    let recommendation;
 
+    if (risk >= 8) {
+
+        riskLevel = "HIGH RISK";
+
+        riskMessage =
+            "The current estimates show significant financial risk.";
+
+    } else if (risk >= 5) {
+
+        riskLevel = "MEDIUM RISK";
+
+        riskMessage =
+            "The business may work, but some important areas need attention.";
+
+    } else {
+
+        riskLevel = "LOWER RISK";
+
+        riskMessage =
+            "The estimates indicate relatively lower risk based on the information provided.";
+    }
+
+
+    // PROFIT ASSESSMENT
+
+    let profitAssessment;
 
     if (monthlyProfit <= 0) {
 
-        riskLevel = "HIGH RISK";
-        riskMessage =
-            "The business is currently not generating a positive monthly profit.";
+        profitAssessment =
+            "<strong>❌ Profitability</strong>" +
+            " The business is currently not profitable based on your estimates.";
 
-        recommendation =
-            "Do not invest based on these numbers yet. Consider increasing revenue, reducing expenses, or changing the business model.";
+    } else if (margin >= 20) {
 
-    }
+        profitAssessment =
+            "<strong>✅ Profitability</strong>" +
+            " The projected profit margin is strong.";
 
-    else if (score >= 7) {
+    } else {
 
-        riskLevel = "HIGH RISK";
-        riskMessage =
-            "The projected returns are weak compared with the capital required.";
-
-        recommendation =
-            "The numbers need improvement before investing. Look for ways to increase sales and reduce operating costs.";
-
-    }
-
-    else if (score >= 4) {
-
-        riskLevel = "MEDIUM RISK";
-        riskMessage =
-            "The business may work, but there are financial areas that need attention.";
-
-        recommendation =
-            "Consider starting carefully, controlling expenses and testing customer demand before committing all your capital.";
-
-    }
-
-    else {
-
-        riskLevel = "LOWER RISK";
-        riskMessage =
-            "The projected business numbers show positive profitability and a relatively attractive return.";
-
-        recommendation =
-            "The numbers look promising. However, confirm real market demand, competition and actual operating costs before investing.";
-
+        profitAssessment =
+            "<strong>⚠️ Profitability</strong>" +
+            " The business is profitable, but the profit margin could be improved.";
     }
 
 
-    // DISPLAY RESULTS
+    // MARKET ASSESSMENT
+
+    let marketAssessment;
+
+    if (demand === 3) {
+
+        marketAssessment =
+            "<strong>✅ Market Demand</strong>" +
+            " Strong customer demand is expected.";
+
+    } else if (demand === 2) {
+
+        marketAssessment =
+            "<strong>⚠️ Market Demand</strong>" +
+            " Demand is expected to be moderate. Consider testing the market.";
+
+    } else {
+
+        marketAssessment =
+            "<strong>❌ Market Demand</strong>" +
+            " Low expected demand increases the business risk.";
+    }
+
+
+    // COMPETITION ASSESSMENT
+
+    let competitionAssessment;
+
+    if (competition === 3) {
+
+        competitionAssessment =
+            "<strong>✅ Competition</strong>" +
+            " Lower competition may provide more room to attract customers.";
+
+    } else if (competition === 2) {
+
+        competitionAssessment =
+            "<strong>⚠️ Competition</strong>" +
+            " Competition is moderate. A clear advantage can help.";
+
+    } else {
+
+        competitionAssessment =
+            "<strong>❌ Competition</strong>" +
+            " High competition may make customer acquisition harder.";
+    }
+
+
+    // RESERVE ASSESSMENT
+
+    let reserveAssessment;
+
+    if (reserve >= expenses * 3) {
+
+        reserveAssessment =
+            "<strong>✅ Emergency Reserve</strong>" +
+            " Your reserve covers approximately three or more months of expenses.";
+
+    } else if (reserve >= expenses) {
+
+        reserveAssessment =
+            "<strong>⚠️ Emergency Reserve</strong>" +
+            " You have some financial protection, but a larger reserve would be safer.";
+
+    } else {
+
+        reserveAssessment =
+            "<strong>❌ Emergency Reserve</strong>" +
+            " Your reserve may not be enough to handle unexpected costs.";
+    }
+
+
+    // RECOMMENDATION
+
+    let recommendation;
+
+    if (monthlyProfit <= 0) {
+
+        recommendation =
+            "Do not invest based on these estimates yet. Revenue is not covering expenses. Consider increasing sales, reducing costs, or changing the business model.";
+
+    } else if (score >= 80) {
+
+        recommendation =
+            "The numbers show strong potential. Before investing, verify real customer demand, competitors, suppliers and actual operating costs.";
+
+    } else if (score >= 65) {
+
+        recommendation =
+            "The business shows good potential. Consider starting at a manageable scale and track your real revenue and expenses.";
+
+    } else if (score >= 50) {
+
+        recommendation =
+            "The business has moderate potential. Improve the weaker areas before committing a large amount of capital.";
+
+    } else {
+
+        recommendation =
+            "The current numbers indicate significant risk. Test the market and improve the business model before investing heavily.";
+    }
+
+
+    // DISPLAY
 
     document.getElementById("empty").style.display = "none";
 
@@ -543,6 +887,12 @@ function analyseBusiness() {
 
     document.getElementById("resultBusiness").textContent =
         business;
+
+    document.getElementById("businessScore").textContent =
+        score + "/100";
+
+    document.getElementById("scoreLabel").textContent =
+        scoreLabel;
 
     document.getElementById("monthlyProfit").textContent =
         formatMoney(monthlyProfit);
@@ -562,7 +912,7 @@ function analyseBusiness() {
         : "Not achievable";
 
     document.getElementById("riskScore").textContent =
-        score + " / 10";
+        risk + " / 10";
 
     document.getElementById("riskLevel").textContent =
         riskLevel;
@@ -570,24 +920,4 @@ function analyseBusiness() {
     document.getElementById("riskMessage").textContent =
         riskMessage;
 
-    document.getElementById("recommendation").textContent =
-        recommendation;
-}
-
-
-function resetAnalysis() {
-
-    document.getElementById("business").value = "";
-    document.getElementById("capital").value = "";
-    document.getElementById("revenue").value = "";
-    document.getElementById("expenses").value = "";
-
-    document.getElementById("result").style.display = "none";
-    document.getElementById("empty").style.display = "block";
-}
-
-</script>
-
-</body>
-                       </html>
-                       
+    document.getElementById("profitAssessment").
